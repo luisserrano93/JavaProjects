@@ -1,0 +1,120 @@
+
+
+
+-- Usuario requerido: root
+-- Password requerida: yakazymoneling20
+
+-- MySQL Workbench 6.3 CE
+
+
+
+-- **************************************************************************  CÓDIGO SQL DE CREACIÓN DE LA BBDD ******************************************
+-- ********************************************************************************************************************************************************
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema upmSocial
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema upmSocial
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `upmSocial` DEFAULT CHARACTER SET utf8 ;
+USE `upmSocial` ;
+
+-- -----------------------------------------------------
+-- Table `upmSocial`.`USUARIO`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `upmSocial`.`USUARIO` ;
+
+CREATE TABLE IF NOT EXISTS `upmSocial`.`USUARIO` (
+  `username` VARCHAR(45) NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellido1` VARCHAR(45) NOT NULL,
+  `apellido2` VARCHAR(45) NOT NULL,
+  `direccion` VARCHAR(45) NULL,
+  `correo` VARCHAR(45) NOT NULL,
+  `telefono` VARCHAR(45) NULL,
+  PRIMARY KEY (`username`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `upmSocial`.`POST`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `upmSocial`.`POST` ;
+
+CREATE TABLE IF NOT EXISTS `upmSocial`.`POST` (
+  `idPost` INT NOT NULL,
+  `idUsuario_Post` VARCHAR(45) NOT NULL,
+  `textoPost` VARCHAR(45) NOT NULL,
+  `fechaPost` DATE NOT NULL,
+  PRIMARY KEY (`idPost`),
+  INDEX `idUsuario_Post_idx` (`idUsuario_Post` ASC),
+  CONSTRAINT `idUsuario_Post`
+    FOREIGN KEY (`idUsuario_Post`)
+    REFERENCES `upmSocial`.`USUARIO` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `upmSocial`.`AMIGOS`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `upmSocial`.`AMIGOS` ;
+
+CREATE TABLE IF NOT EXISTS `upmSocial`.`AMIGOS` (
+  `idAmigos` VARCHAR(45) NOT NULL,
+  `idUsuario_amigos` VARCHAR(45) NOT NULL,
+  `fechaAmistad` DATE NOT NULL,
+  PRIMARY KEY (`idAmigos`, `idUsuario_amigos`),
+  INDEX `idAmigos_idx` (`idUsuario_amigos` ASC),
+  CONSTRAINT `idAmigos`
+    FOREIGN KEY (`idUsuario_amigos`)
+    REFERENCES `upmSocial`.`USUARIO` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
+-- **************************************************************************  SENTENCIAS SQL PARA LA CORRECTA EJECUCIÓN DEL CLIENTE: ******************************************
+-- *****************************************************************************************************************************************************************************
+
+
+
+INSERT INTO `upmsocial`.`usuario` (`username`, `nombre`, `apellido1`, `apellido2`, `direccion`, `correo`, `telefono`) VALUES ('cejas69', 'Carlos', 'Pozo', 'Ventura', 'Mayor,30', 'cejas@hotmail.com', '918732222');
+INSERT INTO `upmsocial`.`usuario` (`username`, `nombre`, `apellido1`, `apellido2`, `direccion`, `correo`, `telefono`) VALUES ('charli55', 'Carlos', 'Muñoz', 'Burgos', 'Alcala,12', 'charli@gmail.com', '918735656');
+INSERT INTO `upmsocial`.`usuario` (`username`, `nombre`, `apellido1`, `apellido2`, `direccion`, `correo`, `telefono`) VALUES ('danivs', 'Daniel', 'Vilela', 'Sanchez', 'Pinar,30', 'danivs@hotmail.com', '918734586');
+INSERT INTO `upmsocial`.`usuario` (`username`, `nombre`, `apellido1`, `apellido2`, `direccion`, `correo`, `telefono`) VALUES ('vilela4', 'Jorge', 'Vilela', 'Sanchez', 'Pinar,30', 'jorgito@gmail.com', '918734586');
+
+
+
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('19', 'charli55', 'Este sabado partidazo!', '2005-07-08');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('20', 'danivs', 'Como mola upmsocial!', '2006-07-09');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('21', 'vilela4', 'El sabado hay fiesta!', '2009-01-20');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('4', 'vilela4', 'Me gusta mucho el partido de baloncesto', '2009-08-06');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('5', 'charli55', 'Que me pongo para salir el sabado?', '2010-07-7');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('6', 'danivs', 'Me aburrrrrrrrrrrrrrrooo', '2010-06-08');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('7', 'danivs', 'No se que poner', '2011-08-08');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('8', 'charli55', 'Esto es un mensaje de prueba', '2011-07-30');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('9', 'vilela4', 'Deseando que llegue el sabado', '2011-08-08');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('10', 'charli55', 'Hola!', '2012-09-06');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('11', 'vilela4', 'Pa ti mi cola!', '2013-08-07');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('12', 'danivs', 'Buenas', '2014-09-07');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('13', 'charli55', 'Que tal?', '2015-08-09');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('14', 'vilela4', 'Este sabado se lia!', '2015-09-07');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('15', 'vilela4', 'jejejejejej', '2016-07-09');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('16', 'charli55', 'XAO!', '2016-07-08');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('17', 'vilela4', 'YEEEEEEEEEEEEEEEEEEEEEEEE', '2016-09-10');
+INSERT INTO `upmsocial`.`post` (`idPost`, `idUsuario_Post`, `textoPost`, `fechaPost`) VALUES ('18', 'danivs', 'no me gusta upmsocial', '2017-05-02');
+
